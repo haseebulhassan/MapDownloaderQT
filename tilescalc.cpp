@@ -2,6 +2,19 @@
 #include <math.h>
 #include <mainwindow.h>
 
+
+long TilesCalc::TotalTiles=0;
+long TilesCalc::TotalTilesLat=0;
+long TilesCalc::TotalTilesLon=0;
+double TilesCalc::TotalDiskReq=0;
+int TilesCalc::TotalTimeReq=0;
+double TilesCalc::Longitude_Start=0;
+double TilesCalc::Latitude_Start=0;
+double TilesCalc::Longitude_End=0;
+double TilesCalc::Latitude_End=0;
+int TilesCalc::zoom=0;
+
+
 TilesCalc::TilesCalc()
 {
 
@@ -44,17 +57,18 @@ int calculate_tiles(int zoom, double lat_start, double lat_stop, double lon_star
 
 void TilesCalc::CalculateTiles()
 {
-    int start_x = latlon2xy(zoom, Latitude_Start, Longitude_Start,0);
-    int start_y = latlon2xy(zoom, Latitude_Start, Longitude_Start,1);
+     int start_x = latlon2xy(TilesCalc::zoom, TilesCalc::Latitude_Start, TilesCalc::Longitude_Start,0);
+    int start_y = latlon2xy(TilesCalc::zoom, TilesCalc::Latitude_Start, TilesCalc::Longitude_Start,1);
 
-    int stop_x = latlon2xy(zoom, Latitude_End, Longitude_End,0);
-    int stop_y = latlon2xy(zoom, Latitude_End, Longitude_End,1);
+    int stop_x = latlon2xy(TilesCalc::zoom, TilesCalc::Latitude_End, TilesCalc::Longitude_End,0);
+    int stop_y = latlon2xy(TilesCalc::zoom, TilesCalc::Latitude_End, TilesCalc::Longitude_End,1);
 
-     TotalTiles = (stop_x-start_x )*(-stop_y+start_y );
-     TotalTilesLat = (-stop_y+start_y );
-    TotalTilesLon = (stop_x-start_x );
-    TotalDiskReq = (TotalTiles* TileSizeBytes)/1024;
-    TotalTimeReq = (TotalTiles * TimeReqPerTile)/60;
+     TilesCalc::TotalTiles = (stop_x-start_x )*(-stop_y+start_y );
+     TilesCalc::TotalTilesLat = (-stop_y+start_y );
+    TilesCalc::TotalTilesLon = (stop_x-start_x );
+    TilesCalc::TotalDiskReq = (TilesCalc::TotalTiles* TileSizeBytes)/1024;
+    TilesCalc::TotalTimeReq = (TilesCalc::TotalTiles * TimeReqPerTile)/60;
+
 
 }
 

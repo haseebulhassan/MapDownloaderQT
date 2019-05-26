@@ -12,7 +12,7 @@ public:
    static long TotalTiles;
    static long TotalTilesLat;
     static long TotalTilesLon;
-  static double TotalDiskReq;
+   static double TotalDiskReq;
    static int TotalTimeReq;
    static double Longitude_Start;
    static double Latitude_Start;

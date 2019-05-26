@@ -3,7 +3,6 @@
 #include <QPixmap>
 
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -91,15 +90,15 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_calculate_clicked()
 {
 
-   TilesCalc::Latitude_Start =  ui->lineEdit_latB->text().toDouble();
-   TilesCalc::Latitude_End = ui->lineEdit_latA->text().toDouble();
-   TilesCalc::Longitude_Start = ui->lineEdit_lonA->text().toDouble();
-   TilesCalc::Longitude_End  =  ui->lineEdit_latB->text().toDouble();
-   TilesCalc::zoom = ui->lineEdit_zoom->text().toInt();
+  // TilesCalc::Latitude_Start =  ui->lineEdit_latB->text().toDouble();
+  // TilesCalc::Latitude_End = ui->lineEdit_latA->text().toDouble();
+  // TilesCalc::Longitude_Start = ui->lineEdit_lonA->text().toDouble();
+  // TilesCalc::Longitude_End  =  ui->lineEdit_latB->text().toDouble();
+  // TilesCalc::zoom = ui->lineEdit_zoom->text().toInt();
 
     TilesCalc::CalculateTiles();
 
-    ui->lineEdit_totaltiles->setText(QString::number(TilesCalc::TotalTiles));
+    //ui->lineEdit_totaltiles->setText(QString::number(TilesCalc::TotalTiles));
 
 
 
