@@ -8,6 +8,7 @@ static class TilesCalc
 public:
     TilesCalc();
     static void CalculateTiles();
+    //static int latlon2xy(int z, double lat, double lon, int a);
 
    static long TotalTiles;
    static long TotalTilesLat;

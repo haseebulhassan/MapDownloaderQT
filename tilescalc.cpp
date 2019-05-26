@@ -1,7 +1,9 @@
 #include "tilescalc.h"
 #include <math.h>
 #include <mainwindow.h>
-
+#include <QtMath>
+#include <QDebug>
+#include <QString>
 
 long TilesCalc::TotalTiles=0;
 long TilesCalc::TotalTilesLat=0;
@@ -23,8 +25,11 @@ TilesCalc::TilesCalc()
 
 double latlon2px(int z,double lat, double lon, int a)
 {
-    double x = 0;//2**z*(lon+180)/360*256;
-    double y = 0;//-(.5*log((1+sin(radians(lat)))/(1-sin(radians(lat))))/pi-1)*256*2**(z-1);
+    double x = qFloor(qPow(2,z) * (lon + 180)/360 * 256);
+    //double x =2**z*(lon+180)/360*256;
+
+    double y =  -(.5*log((1+qSin(qDegreesToRadians(lat)))/(1-qSin(qDegreesToRadians(lat))))/M_PI -1)*256 * qPow(2, (z-1));
+    //double y = -(.5*log((1+sin(ra(dians(lat)))/(1-sin(radians(lat))))/pi-1)*256*2**(z-1);
     if (a==0) return x;
     else return y;
 
@@ -63,8 +68,19 @@ void TilesCalc::CalculateTiles()
     int stop_x = latlon2xy(TilesCalc::zoom, TilesCalc::Latitude_End, TilesCalc::Longitude_End,0);
     int stop_y = latlon2xy(TilesCalc::zoom, TilesCalc::Latitude_End, TilesCalc::Longitude_End,1);
 
-     TilesCalc::TotalTiles = (stop_x-start_x )*(-stop_y+start_y );
-     TilesCalc::TotalTilesLat = (-stop_y+start_y );
+    //start_x = latlon2xy(15, 32.989765, 73.718900,0);
+    //start_y = latlon2xy(15, 32.989765, 73.718900,1);
+    //stop_x = latlon2xy(15, 32.701558, 73.797986,0);
+    //stop_y = latlon2xy(15, 32.701558, 73.797986,1);
+
+    qDebug()<<"StartX : "+ QString::number(start_x);
+    qDebug()<<"StartY : " + QString::number(start_y);
+    qDebug()<<"StopX : " + QString::number(stop_x);
+    qDebug()<<"StopY : " + QString::number(stop_y);
+
+
+    TilesCalc::TotalTiles = (stop_x-start_x )*(-stop_y+start_y );
+    TilesCalc::TotalTilesLat = (-stop_y+start_y );
     TilesCalc::TotalTilesLon = (stop_x-start_x );
     TilesCalc::TotalDiskReq = (TilesCalc::TotalTiles* TileSizeBytes)/1024;
     TilesCalc::TotalTimeReq = (TilesCalc::TotalTiles * TimeReqPerTile)/60;

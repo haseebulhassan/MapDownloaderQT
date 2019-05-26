@@ -11,9 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //TilesCalc MyTiles = new TilesCalc;
     ui->setupUi(this);
-    QPixmap pix("/Volumes/Seagate/QT/Projects/build-MapDownloader-Desktop/map_example1.png");
-    ui->pic->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
+    QPixmap pix("/home/haseeb/Desktop/Projects/MapDownloaderQT/map_example1.png");
+    int w = ui->pic->width();
+    int h = ui->pic->height();
+    ui->pic->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
     ui->setupUi(this);
+
+    connect(ui->pushButton_calculate, SIGNAL(clicked(bool)), this , SLOT(on_pushButton_calculate_clicked()));
 
 }
 
@@ -90,15 +94,22 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_calculate_clicked()
 {
 
-  // TilesCalc::Latitude_Start =  ui->lineEdit_latB->text().toDouble();
-  // TilesCalc::Latitude_End = ui->lineEdit_latA->text().toDouble();
-  // TilesCalc::Longitude_Start = ui->lineEdit_lonA->text().toDouble();
-  // TilesCalc::Longitude_End  =  ui->lineEdit_latB->text().toDouble();
-  // TilesCalc::zoom = ui->lineEdit_zoom->text().toInt();
+   TilesCalc::Latitude_Start =  ui->lineEdit_latB->text().toDouble();
+   TilesCalc::Latitude_End = ui->lineEdit_latA->text().toDouble();
+   TilesCalc::Longitude_Start = ui->lineEdit_lonA->text().toDouble();
+   TilesCalc::Longitude_End  =  ui->lineEdit_lonB->text().toDouble();
+   TilesCalc::zoom = ui->lineEdit_zoom->text().toInt();
+
+   double a = ui->lineEdit_latB->text().toDouble();
 
     TilesCalc::CalculateTiles();
 
-    //ui->lineEdit_totaltiles->setText(QString::number(TilesCalc::TotalTiles));
+    ui->lineEdit_totaltiles->setText(QString::number(TilesCalc::TotalTiles));
+    ui->lineEdit_tilesLat->setText(QString::number(TilesCalc::TotalTilesLat));
+    ui->lineEdit_tilesLon->setText(QString::number(TilesCalc::TotalTilesLon));
+    ui->lineEdit_timeReq->setText(QString::number(TilesCalc::TotalTimeReq));
+    ui->lineEdit_diskReq->setText(QString::number(TilesCalc::TotalDiskReq));
+
 
 
 
